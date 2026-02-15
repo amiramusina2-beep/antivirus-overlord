@@ -11,7 +11,7 @@ def main(page: ft.Page):
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
     # --- ЭЛЕМЕНТЫ ИНТЕРФЕЙСА ---
-    icon = ft.Icon(ft.icons.SHIELD_SHARP, color="red", size=100)
+    icon = ft.Icon(ft.icons.SHIELD, color="red", size=100)
     
     title = ft.Text(
         "SYSTEM OVERLORD", 
@@ -81,3 +81,4 @@ if __name__ == "__main__":
     # Берем порт из настроек сервера или ставим 8080 по умолчанию
     port = int(os.getenv("PORT", 8080))
     ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=port, host="0.0.0.0")
+
