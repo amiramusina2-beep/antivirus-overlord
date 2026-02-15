@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antivirus Overlord - Professional</title>
+    <style>
+        body {
+            background: #0a0a0c;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', sans-serif;
+            color: #e0e0e0;
+        }
+
+        .glass-card {
+            background: rgba(40, 44, 52, 0.6);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            text-align: center;
+        }
+
+        .header {
+            font-size: 14px;
+            color: #00d1ff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        h1 { margin: 0 0 20px 0; font-weight: 300; }
+
+        .info-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: left;
+            font-size: 13px;
+            line-height: 1.6;
+            border-left: 3px solid #00d1ff;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: 1px solid #00d1ff;
+            color: #00d1ff;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        .action-btn:hover {
+            background: #00d1ff;
+            color: #000;
+        }
+
+        #loader-box { display: none; margin-top: 20px; }
+
+        .progress-bg {
+            background: #1a1a1a;
+            height: 4px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        #progress-fill {
+            width: 0%;
+            height: 100%;
+            background: #00d1ff;
+            transition: width 0.1s linear;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glass-card">
+        <div class="header">Security Terminal</div>
+        <h1>OVERLORD v2.0</h1>
+
+        <div class="info-box" id="data-screen">
+            Ожидание запуска сканера...
+        </div>
+
+        <div id="loader-box">
+            <div class="progress-bg"><div id="progress-fill"></div></div>
+            <p id="status-msg" style="font-size: 12px; margin-top: 10px;">Инициализация...</p>
+        </div>
+
+        <button class="action-btn" id="main-btn" onclick="startProfessionalScan()">ЗАПУСТИТЬ ПРОВЕРКУ</button>
+    </div>
+
+    <script>
+        async function startProfessionalScan() {
+            const btn = document.getElementById('main-btn');
+            const loader = document.getElementById('loader-box');
+            const fill = document.getElementById('progress-fill');
+            const status = document.getElementById('status-msg');
+            const dataScreen = document.getElementById('data-screen');
+
+            btn.style.display = 'none';
+            loader.style.display = 'block';
+            dataScreen.innerHTML = "Подключение к узлам безопасности...";
+
+            let progress = 0;
+            const timer = setInterval(async () => {
+                progress++;
+                fill.style.width = progress + '%';
+
+                if (progress === 20) {
+                    status.innerHTML = "Проверка браузера...";
+                    dataScreen.innerHTML = `Браузер: ${navigator.vendor}<br>Язык: ${navigator.language}`;
+                }
+                if (progress === 50) {
+                    status.innerHTML = "Анализ сетевого протокола...";
+                    dataScreen.innerHTML += `<br>Связь: ${navigator.onLine ? "ONLINE" : "OFFLINE"}`;
+                }
+                if (progress === 80) {
+                    status.innerHTML = "Проверка аппаратного ускорения...";
+                    dataScreen.innerHTML += `<br>Ядер процессора: ${navigator.hardwareConcurrency || 'N/A'}`;
+                }
+
+                if (progress >= 100) {
+                    clearInterval(timer);
+                    status.innerHTML = "ПРОВЕРКА ЗАВЕРШЕНА";
+                    status.style.color = "#00ff88";
+                    dataScreen.innerHTML += "<br><br><b>Результат: Угроз не обнаружено. Система чиста.</b>";
+                    
+                    btn.style.display = 'block';
+                    btn.innerHTML = "ПОВТОРИТЬ ПРОВЕРКУ";
+                }
+            }, 50);
+        }
+    </script>
+</body>
+</html>
